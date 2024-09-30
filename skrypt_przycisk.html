@@ -1,0 +1,62 @@
+<style>
+        .streszczenie {
+            display: block;
+            overflow: hidden;
+            line-height: 1.5em;
+            max-height: 4.5em; /* 3 linijki */
+            margin-bottom: 10px;
+        }
+
+        .show-more {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #F58222;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .show-more:hover {
+            background-color: #d4711d; /* Ciemniejszy kolor po najechaniu */
+        }
+
+        .show-more:active {
+            background-color: #c0621a; /* Jeszcze ciemniejszy kolor po kliknięciu */
+        }
+    </style>
+    <script>
+        function toggleText(button, streszczenie) {
+            if (streszczenie.style.maxHeight === 'none') {
+                streszczenie.style.maxHeight = '4.5em'; // Powrót do 3 linijek
+                button.innerText = 'Pokaż więcej';
+            } else {
+                streszczenie.style.maxHeight = 'none'; // Pokaż cały tekst
+                button.innerText = 'Pokaż mniej';
+            }
+        }
+
+        window.onload = function() {
+            const streszczenia = document.querySelectorAll('.streszczenie');
+            
+            streszczenia.forEach((streszczenie) => {
+                // Sprawdzenie, czy tekst przekracza 3 linijki
+                if (streszczenie.scrollHeight > streszczenie.clientHeight) {
+                    // Tworzenie przycisku dla każdego elementu
+                    const button = document.createElement('button');
+                    button.classList.add('show-more');
+                    button.innerText = 'Pokaż więcej';
+                    button.onclick = function() {
+                        toggleText(button, streszczenie);
+                    };
+
+                    // Wstawianie przycisku po elemencie streszczenie
+                    streszczenie.parentNode.insertBefore(button, streszczenie.nextSibling);
+                }
+            });
+        }
+    </script>
